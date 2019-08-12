@@ -1,6 +1,10 @@
 # Add script to:
 # * Install dependencies
 # * Build/Compile
+# This variable contains absolute path of this `parking_lot` script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+# Make executable file
+chmod +x $DIR/parking_lot
 # * Run Test Suit to validate
 #
 # After this is run, bin/parking_lot

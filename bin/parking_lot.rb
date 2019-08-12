@@ -223,8 +223,7 @@ end
 # GETS INPUT
 if ARGV.length > 0
 	filename = ARGV.first.chomp
-	puts __dir__
-	File.foreach("#{__dir__}/../functional_spec/fixtures/#{filename}") do |line|
+	File.foreach("#{Dir.pwd}/functional_spec/fixtures/#{filename}") do |line|
 		execute_line(line)
 	end
 else
