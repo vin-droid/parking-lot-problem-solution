@@ -44,13 +44,13 @@ RSpec.describe 'End To End Suite' do
 
     it "input from file" do
       pty = PTY.spawn("parking_lot #{File.join(File.dirname(__FILE__), '..', 'fixtures', 'file_input.txt')}")
-      print 'Testing file input: '
+      print 'Testing file inputs: '
       expect(fetch_stdout(pty)).to eq(expected.join(''))
     end
 
     it "interactive input" do
       pty = PTY.spawn("parking_lot")
-      print 'Testing interactive input: '
+      print 'Testing interactive inputs: '
       commands.each_with_index do |cmd, index|
         print cmd
         run_command(pty, cmd)

@@ -20,9 +20,9 @@ class ParkingLot
 		number_of_slots = number_of_slots.to_i
 		@total_slots = (1..number_of_slots).to_a.inject([]) do |total_slots, slot_number|
 			total_slots << Slot.new(slot_number)
-			puts "Created a parking lot with #{number_of_slots} slots" if number_of_slots > 0
 			total_slots
 		end
+		print "Created a parking lot with #{number_of_slots} slots\n" if number_of_slots > 0
 	end
 
 	def park(car_number_plate, car_colour)
@@ -30,7 +30,7 @@ class ParkingLot
 		nearest_free_slot = check_if_free_slot_available
 		@total_parking_tickets << create_parking_ticket(car, nearest_free_slot.slot_number)
 		update_slot(nearest_free_slot, :allocated)
-		puts "Allocated slot number: #{nearest_free_slot.slot_number}"
+		print "Allocated slot number: #{nearest_free_slot.slot_number}\n"
 	end
 
 	def leave(slot_number)
@@ -39,7 +39,7 @@ class ParkingLot
 		raise "Invalid slot number" if slot.nil?
 		slot = update_slot(slot, :free)
 		update_ticket_of_slot(slot, :out)
-		puts "Slot number #{slot_number} is free"
+		print "Slot number #{slot_number} is free\n"
 	end
 
 	def free_slots
@@ -64,9 +64,9 @@ class ParkingLot
 
 	def tickets_details_having_alloted_slot
 		parking_tickets = tickets_having_alloted_slot
-		puts "Slot No.    Registration No    Colour"
+		print "Slot No.    Registration No    Colour\n"
 		parking_tickets.each do |parking_ticket|
-			puts "#{parking_ticket.slot_number}    #{parking_ticket.registration_number}    #{parking_ticket.car_colour}"
+			print "#{parking_ticket.slot_number}           #{parking_ticket.registration_number}      #{parking_ticket.car_colour}\n"
 		end
 	end
 
@@ -75,7 +75,7 @@ class ParkingLot
 							   select { |ticket|  ticket.car_colour == colour }.
 							   map { |ticket| ticket.registration_number }
 		raise "Not found" if registration_numbers.empty? 
-		puts registration_numbers.join(', ')
+		print "#{registration_numbers.join(', ')}\n"
 	end
 
 	def slot_numbers_for_cars_with_colour(colour)
@@ -83,13 +83,13 @@ class ParkingLot
 							   select { |ticket|  ticket.car_colour == colour }.
 							   map { |ticket| ticket.slot_number }
 	    raise "Not found" if slot_numbers.empty?
-		puts slot_numbers.join(', ')
+		print "#{slot_numbers.join(', ')}\n"
 	end
 
 	def slot_number_for_registration_number(registration_number)
 		ticket = tickets_having_alloted_slot.find { |ticket|  ticket.registration_number == registration_number }
 		raise "Not found" if ticket.nil?
-		puts ticket.slot_number
+		print "#{ticket.slot_number}\n"
 	end
 
 	private
@@ -216,14 +216,14 @@ def execute_line(line)
 	 		ParkingLot.instance.send(method_name, *args) 
 		end
 	rescue StandardError => e
-		puts e.message
+		print "#{e.message}\n"
 	end
 end
 
 # GETS INPUT
 if ARGV.length > 0
 	filename = ARGV.first.chomp
-	File.foreach("#{Dir.pwd}/functional_spec/fixtures/#{filename}") do |line|
+	File.foreach("#{filename}") do |line|
 		execute_line(line)
 	end
 else

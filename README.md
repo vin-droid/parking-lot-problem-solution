@@ -49,7 +49,7 @@ parking_lot $ chmod +x bin/parking_lot
 
 Then run the full suite from `parking_lot` by doing
 ```
-parking_lot $ bin/parking_lot file_inputs.txt
+parking_lot $ bin/parking_lot file_input.txt
 ```
 
 You can execute run the program and launch the shell
